@@ -1,0 +1,25 @@
+---
+- name: Configurar servidor web Apache en Ubuntu
+  hosts: all
+  become: yes  
+
+  tasks:
+    - name: Actualizar lista de paquetes
+      apt:
+        update_cache: yes
+
+    - name: Instalar Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Iniciar Apache y habilitarlo en el inicio
+      systemd:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: Crear página de inicio
+      copy:
+        content: "<h1>Hola Mundo desde {{ ansible_hostname }}</h1>\n"
+        dest: /var/www/html/index.html

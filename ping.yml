@@ -1,0 +1,7 @@
+---
+- name: Verificar conectividad con las instancias EC2
+  hosts: all
+  become: no
+  tasks:
+    - name: Probar la conexión con ping
+      ping:
